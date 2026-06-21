@@ -1,10 +1,16 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { MapPin, Phone, Mail, Clock, ChevronRight, Award, Users, BookOpen, Target, Eye, Heart } from 'lucide-react'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = {
   title: '关于学院 - 佰利涂装应用学院',
   description: '佰利涂装应用学院成立于2015年，专注涂装技术培训，拥有50余位认证讲师，培育了超过10000名专业涂装人才',
+  openGraph: {
+    title: '关于学院 - 佰利涂装应用学院',
+    description: '佰利涂装应用学院成立于2015年，专注涂装技术培训，拥有50余位认证讲师，培育了超过10000名专业涂装人才',
+    url: '/about',
+  },
 }
 
 const instructors = [
@@ -291,28 +297,7 @@ export default function AboutPage() {
                   <p className="text-sm text-blue-200">涂装产业园A栋</p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <h3 className="font-bold text-[#0A3D5C] mb-3">免费咨询预约</h3>
-                <p className="text-sm text-gray-500 mb-4">填写信息，我们的招生顾问将在1小时内与您联系</p>
-                <div className="space-y-3">
-                  <input
-                    type="text"
-                    placeholder="您的姓名"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-[#0A3D5C] transition-colors"
-                  />
-                  <input
-                    type="tel"
-                    placeholder="联系电话"
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:border-[#0A3D5C] transition-colors"
-                  />
-                  <button
-                    className="w-full py-2.5 rounded-lg text-sm font-bold text-white transition-opacity hover:opacity-90"
-                    style={{ backgroundColor: '#E8A020' }}
-                  >
-                    预约免费咨询
-                  </button>
-                </div>
-              </div>
+              <ContactForm />
             </div>
           </div>
         </div>
