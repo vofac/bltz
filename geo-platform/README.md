@@ -35,14 +35,27 @@ geo-platform/
 └── docker-compose.yml
 ```
 
-## Phase 1 MVP 范围
+## Phase 1 MVP 范围（已全部完成）
 
 - [x] Monorepo 骨架 + Docker Compose
-- [ ] 数据库模型 + Alembic 迁移
-- [ ] 登录系统（注册/登录/JWT/角色）
-- [ ] AIProvider 抽象层 + Mock Provider
-- [ ] 关键词监测模块
-- [ ] GEO 评分算法 v1
-- [ ] GEO 驾驶舱 Dashboard
+- [x] 数据库模型 + Alembic 迁移
+- [x] 登录系统（注册/登录/JWT/角色）
+- [x] AIProvider 抽象层 + Mock Provider
+- [x] 关键词监测模块
+- [x] GEO 评分算法 v1
+- [x] GEO 驾驶舱 Dashboard
 
-AI 厂商调用在 Phase 1 默认使用 `AI_PROVIDER_MODE=mock`，业务全流程可在没有真实 API Key 的情况下打通；在 `.env` 中填入真实 Key 并设置 `AI_PROVIDER_MODE=live` 即可切换为真实调用，无需改动业务代码。
+AI 厂商调用在 Phase 1 默认使用 `AI_PROVIDER_MODE=mock`，业务全流程可在没有真实 API Key 的情况下打通；在 `.env` 中填入真实 Key 并设置 `AI_PROVIDER_MODE=live` 即可切换为真实调用，无需改动业务代码（`app/services/ai_providers/factory.py` 是唯一的派发点）。
+
+## 运行测试
+
+```bash
+cd geo-platform/apps/api
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+pytest -v
+```
+
+## Phase 2 预告
+
+AI 能力增强：接入真实厂商 API（OpenAI/Claude/Gemini/Perplexity）、AI 内容优化助手、企业知识库（OCR + 向量化）、竞品品牌对比分析、每日 AI 策略生成、自动化报告导出。
