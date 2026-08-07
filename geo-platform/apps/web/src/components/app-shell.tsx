@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 const NAV_ITEMS = [
   { href: "/dashboard", label: "GEO 驾驶舱" },
   { href: "/keywords", label: "关键词监测" },
+  { href: "/scores", label: "GEO 评分" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {

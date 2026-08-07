@@ -15,26 +15,9 @@ from app.models.user import User
 from app.schemas.ai_task import AITaskOut
 from app.schemas.keyword import KeywordCreate, KeywordOut
 from app.services.ai_providers.factory import get_ai_provider
+from app.services.brands import get_or_create_default_brand
 
 router = APIRouter(prefix="/keywords", tags=["keywords"])
-
-
-def _get_or_create_default_brand(db: Session, company: Company) -> Brand:
-    """Phase 1 简化：若关键词未指定品牌，复用/创建以企业名命名的默认品牌，
-    避免强制用户先走一遍单独的品牌创建流程。"""
-    brand = (
-        db.query(Brand)
-        .filter(Brand.company_id == company.id)
-        .order_by(Brand.created_at)
-        .first()
-    )
-    if brand:
-        return brand
-
-    brand = Brand(company_id=company.id, name=company.name)
-    db.add(brand)
-    db.flush()
-    return brand
 
 
 def _get_owned_keyword(db: Session, keyword_id: uuid.UUID, current_user: User) -> Keyword:
@@ -95,7 +78,7 @@ def monitor_keyword(
     brand = (
         db.get(Brand, keyword.brand_id)
         if keyword.brand_id
-        else _get_or_create_default_brand(db, company)
+        else get_or_create_default_brand(db, company)
     )
 
     tasks: list[AITask] = []
