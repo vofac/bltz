@@ -187,3 +187,8 @@ def downgrade() -> None:
     op.drop_table('brands')
     op.drop_table('companies')
     # ### end Alembic commands ###
+    # postgres ENUM types are not dropped automatically by op.drop_table
+    sa.Enum(name="content_status").drop(op.get_bind(), checkfirst=True)
+    sa.Enum(name="ai_model").drop(op.get_bind(), checkfirst=True)
+    sa.Enum(name="task_status").drop(op.get_bind(), checkfirst=True)
+    sa.Enum(name="user_role").drop(op.get_bind(), checkfirst=True)
