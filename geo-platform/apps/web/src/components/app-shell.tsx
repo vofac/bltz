@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { href: "/keywords", label: "关键词监测" },
   { href: "/scores", label: "GEO 评分" },
   { href: "/competitors", label: "竞品分析" },
+  { href: "/content-studio", label: "内容优化助手" },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
