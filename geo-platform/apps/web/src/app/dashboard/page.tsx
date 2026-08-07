@@ -20,6 +20,7 @@ import { ApiError } from "@/lib/api";
 import { CurrentUser, getCurrentUser, getToken, logout } from "@/lib/auth";
 import { DashboardSummary, getDashboardSummary } from "@/lib/dashboard";
 import { AI_MODEL_LABELS } from "@/lib/keywords";
+import { DailyStrategy, getDailyStrategy } from "@/lib/strategy";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -31,6 +32,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
+  const [strategy, setStrategy] = useState<DailyStrategy | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -38,10 +40,11 @@ export default function DashboardPage() {
       router.replace("/login");
       return;
     }
-    Promise.all([getCurrentUser(), getDashboardSummary()])
-      .then(([userRes, summaryRes]) => {
+    Promise.all([getCurrentUser(), getDashboardSummary(), getDailyStrategy()])
+      .then(([userRes, summaryRes, strategyRes]) => {
         setUser(userRes);
         setSummary(summaryRes);
+        setStrategy(strategyRes);
       })
       .catch((err) => {
         if (err instanceof ApiError && err.status === 401) {
@@ -92,6 +95,24 @@ export default function DashboardPage() {
             </Link>{" "}
             添加关键词并运行监测，驾驶舱数据会自动更新。
           </p>
+        </Card>
+      )}
+
+      {strategy && strategy.tasks.length > 0 && (
+        <Card className="mt-6">
+          <span className="font-mono text-[11px] uppercase tracking-wide text-neutral-500">
+            今日任务
+          </span>
+          <ul className="mt-3 flex flex-col gap-2.5">
+            {strategy.tasks.map((task, i) => (
+              <li key={i} className="flex items-start gap-3 text-sm">
+                <span className="mt-0.5 shrink-0 rounded-full bg-brand-50 px-2 py-0.5 font-mono text-[10px] text-brand-600 dark:bg-brand-900 dark:text-brand-300">
+                  {task.category}
+                </span>
+                <span className="text-neutral-700 dark:text-neutral-300">{task.description}</span>
+              </li>
+            ))}
+          </ul>
         </Card>
       )}
 
