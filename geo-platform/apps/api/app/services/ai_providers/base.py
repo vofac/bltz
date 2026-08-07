@@ -27,6 +27,7 @@ class AIProvider(ABC):
     ) -> AIQueryResult:
         """针对某关键词提问，分析回答中目标品牌的提及情况，返回结构化结果。"""
 
-    @abstractmethod
     def compare(self, keyword: str, brand_names: list[str]) -> dict[str, AIQueryResult]:
-        """对多个品牌在同一关键词下的表现做对比（供竞品分析场景使用）。"""
+        """对多个品牌在同一关键词下的表现做对比（供竞品分析场景使用）。
+        默认实现：对每个品牌独立调用一次 analyze()；具体 Provider 一般无需覆盖。"""
+        return {name: self.analyze(keyword, name, []) for name in brand_names}

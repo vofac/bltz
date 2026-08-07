@@ -50,6 +50,3 @@ class MockAIProvider(AIProvider):
             citation_sources=["mock-source-1", "mock-source-2"] if mentioned else [],
             competitor_brands_mentioned=competitors,
         )
-
-    def compare(self, keyword: str, brand_names: list[str]) -> dict[str, AIQueryResult]:
-        return {name: self.analyze(keyword, name, []) for name in brand_names}

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 from app.models.ai_task import AIModel
 
@@ -17,6 +17,8 @@ class ModelMentionStat(BaseModel):
 
 
 class DashboardSummary(BaseModel):
+    model_config = ConfigDict(protected_namespaces=())
+
     latest_score: int | None
     previous_score: int | None
     score_change_pct: float | None
