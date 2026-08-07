@@ -19,8 +19,12 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
 
     AI_PROVIDER_MODE: str = "mock"  # mock | live
+    EMBEDDING_PROVIDER_MODE: str = "mock"  # mock | live
 
     CORS_ORIGINS: list[str] = ["http://localhost:3000"]
+
+    STORAGE_DIR: str = "./storage"
+    MAX_UPLOAD_SIZE_MB: int = 20
 
 
 @lru_cache

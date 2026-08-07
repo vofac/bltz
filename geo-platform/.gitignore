@@ -16,3 +16,6 @@ __pycache__/
 # misc
 .DS_Store
 *.log
+
+# uploaded knowledge-base files
+apps/api/storage/
